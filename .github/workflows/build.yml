@@ -1,5 +1,5 @@
 
-name: Loki Electron Wallet Build
+name: Swap Electron Wallet Build
 
 on:
     push:
@@ -25,7 +25,7 @@ jobs:
             - name: Install dependencies
               run: npm install
 
-            - name: Download lokid binaries
+            - name: Download swapd binaries
               run: node ./build/download-binaries.js
 
             - name: Extract zip binaries
@@ -40,10 +40,10 @@ jobs:
               shell: bash
               working-directory: ./downloads
 
-            - name: Move lokid binaries
+            - name: Move swapd binaries
               run: |
-                find ./downloads -type f -name "lokid" -exec cp '{}' ./bin \;
-                find ./downloads -type f -name "loki-wallet-rpc" -exec cp '{}' ./bin \;
+                find ./downloads -type f -name "swapd" -exec cp '{}' ./bin \;
+                find ./downloads -type f -name "swap-wallet-rpc" -exec cp '{}' ./bin \;
               shell: bash
 
             - name: Publish window and linux binaries

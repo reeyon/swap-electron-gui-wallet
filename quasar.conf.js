@@ -176,11 +176,11 @@ module.exports = function (ctx) {
             builder: {
                 // https://www.electron.build/configuration/configuration
 
-                appId: "com.loki-project.electron-wallet",
-                productName: "Loki Electron Wallet",
-                copyright: "Copyright © 2018-2019 Loki Project, 2018 Ryo Currency Project",
+                appId: "com.swap-dev.electron-wallet",
+                productName: "Swap Electron Wallet",
+                copyright: "Copyright © 2018-2019 Swap Project, 2018 Ryo Currency Project",
                 afterSign: "build/notarize.js",
-                artifactName: "loki-electron-wallet-${version}-${os}.${ext}",
+                artifactName: "swap-electron-wallet-${version}-${os}.${ext}",
 
                 // directories: {
                 //     buildResources: "src-electron/build"

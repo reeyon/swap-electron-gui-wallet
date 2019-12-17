@@ -35,13 +35,13 @@
 
             <p class="q-my-sm">Wallet Version: v{{version}}</p>
             <p class="q-my-sm">Deaemon Version: v{{daemonVersion}}</p>
-            <p class="q-my-sm">Copyright (c) 2018-2019, Loki Project</p>
+            <p class="q-my-sm">Copyright (c) 2018-2019, Swap Project</p>
             <p class="q-my-sm">Copyright (c) 2018, Ryo Currency Project</p>
             <p class="q-my-sm">All rights reserved.</p>
 
             <div class="q-mt-md q-mb-lg external-links">
                 <p>
-                    <a @click="openExternal('https://loki.network/')" href="#">https://loki.network/</a>
+                    <a @click="openExternal('https://xwp.one/')" href="#">https://xwp.one/</a>
                 </p>
                 <p>
                     <a @click="openExternal('https://t.me/joinchat/DeNvR0JJ4JPn6TVSQjCsZQ')" href="#">Telegram</a> -

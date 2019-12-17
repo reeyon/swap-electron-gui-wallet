@@ -112,13 +112,13 @@ export class WalletRPC {
                 this.hostname = "127.0.0.1"
                 this.port = options.wallet.rpc_bind_port
 
-                const rpcExecutable = process.platform === "win32" ? "loki-wallet-rpc.exe" : "loki-wallet-rpc"
+                const rpcExecutable = process.platform === "win32" ? "swap-wallet-rpc.exe" : "swap-wallet-rpc"
                 // eslint-disable-next-line no-undef
                 const rpcPath = path.join(__ryo_bin, rpcExecutable)
 
                 // Check if the rpc exists
                 if (!fs.existsSync(rpcPath)) {
-                    reject(new Error("Failed to find Loki Wallet RPC. Please make sure you anti-virus has not removed it."))
+                    reject(new Error("Failed to find Swap Wallet RPC. Please make sure you anti-virus has not removed it."))
                     return
                 }
 
@@ -224,7 +224,7 @@ export class WalletRPC {
             break
 
         case "restore_view_wallet":
-            // TODO: Decide if we want this for loki
+            // TODO: Decide if we want this for swap
             this.restoreViewWallet(params.name, params.password, params.address, params.viewkey,
                 params.refresh_type, params.refresh_type == "date" ? params.refresh_start_date : params.refresh_start_height)
             break
@@ -757,7 +757,7 @@ export class WalletRPC {
                 return
             }
 
-            amount = (parseFloat(amount) * 1e9).toFixed(0)
+            amount = (parseFloat(amount) * 1e12).toFixed(0)
 
             this.sendRPC("stake", {
                 amount,
@@ -938,7 +938,7 @@ export class WalletRPC {
                 return
             }
 
-            amount = (parseFloat(amount) * 1e9).toFixed(0)
+            amount = (parseFloat(amount) * 1e12).toFixed(0)
 
             let sweep_all = amount == this.wallet_state.unlocked_balance
 
@@ -947,11 +947,11 @@ export class WalletRPC {
                 "address": address,
                 "account_index": 0,
                 "priority": priority,
-                "mixin": 9 // Always force a ring size of 10 (ringsize = mixin + 1)
+                "mixin": 10 // Always force a ring size of 10 (ringsize = mixin + 1)
             } : {
                 "destinations": [{ "amount": amount, "address": address }],
                 "priority": priority,
-                "mixin": 9
+                "mixin": 10
             }
 
             if (payment_id) {
@@ -1521,9 +1521,9 @@ export class WalletRPC {
             wallets.legacy = []
             let legacy_paths = []
             if (os.platform() == "win32") {
-                legacy_paths = ["C:\\ProgramData\\Loki"]
+                legacy_paths = ["C:\\ProgramData\\Swap"]
             } else {
-                legacy_paths = [path.join(os.homedir(), "Loki")]
+                legacy_paths = [path.join(os.homedir(), "Swap")]
             }
             for (var i = 0; i < legacy_paths.length; i++) {
                 let legacy_config_path = path.join(legacy_paths[i], "config", "wallet_info.json")

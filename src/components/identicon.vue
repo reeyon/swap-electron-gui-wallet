@@ -81,8 +81,8 @@ export default {
                 case "Sumo":
                 case "RYoL":
                 case "Suto":
-                case "RYoT":
-                    return input.length === 99
+                case "fh":
+                    return input.length === 97
 
                 case "Subo":
                 case "Suso":
