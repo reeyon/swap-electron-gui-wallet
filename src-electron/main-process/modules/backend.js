@@ -25,11 +25,11 @@ export class Backend {
 
     init (config) {
         if (os.platform() === "win32") {
-            this.config_dir = "C:\\ProgramData\\loki"
-            this.wallet_dir = `${os.homedir()}\\Documents\\Loki`
+            this.config_dir = "C:\\ProgramData\\swap"
+            this.wallet_dir = `${os.homedir()}\\Documents\\Swap`
         } else {
-            this.config_dir = path.join(os.homedir(), ".loki")
-            this.wallet_dir = path.join(os.homedir(), "Loki")
+            this.config_dir = path.join(os.homedir(), ".swap")
+            this.wallet_dir = path.join(os.homedir(), "swap")
         }
 
         if (!fs.existsSync(this.config_dir)) {
@@ -45,11 +45,11 @@ export class Backend {
         const daemon = {
             type: "remote",
             p2p_bind_ip: "0.0.0.0",
-            p2p_bind_port: 22022,
+            p2p_bind_port: 19949,
             rpc_bind_ip: "127.0.0.1",
-            rpc_bind_port: 22023,
+            rpc_bind_port: 19950,
             zmq_rpc_bind_ip: "127.0.0.1",
-            zmq_rpc_bind_port: 22024,
+            zmq_rpc_bind_port: 19951,
             out_peers: -1,
             in_peers: -1,
             limit_rate_up: -1,
@@ -60,22 +60,22 @@ export class Backend {
         const daemons = {
             mainnet: {
                 ...daemon,
-                remote_host: "doopool.xyz",
-                remote_port: 22020
+                remote_host: "autonode.xwp.fyi",
+                remote_port: 19950
             },
             stagenet: {
                 ...daemon,
                 type: "local",
-                p2p_bind_port: 38153,
-                rpc_bind_port: 38154,
-                zmq_rpc_bind_port: 38155
+                p2p_bind_port: 39949,
+                rpc_bind_port: 39950,
+                zmq_rpc_bind_port: 39951
             },
             testnet: {
                 ...daemon,
                 type: "local",
-                p2p_bind_port: 38156,
-                rpc_bind_port: 38157,
-                zmq_rpc_bind_port: 38158
+                p2p_bind_port: 29949,
+                rpc_bind_port: 29950,
+                zmq_rpc_bind_port: 29951
             }
         }
 
@@ -85,11 +85,11 @@ export class Backend {
             app: {
                 data_dir: this.config_dir,
                 wallet_data_dir: this.wallet_dir,
-                ws_bind_port: 12313,
+                ws_bind_port: 49949,
                 net_type: "mainnet"
             },
             wallet: {
-                rpc_bind_port: 18082,
+                rpc_bind_port: 49950,
                 log_level: 0
             }
         }
@@ -104,16 +104,8 @@ export class Backend {
 
         this.remotes = [
             {
-                host: "doopool.xyz",
-                port: "22020"
-            },
-            {
-                host: "imaginary.stream",
-                port: "22023"
-            },
-            {
-                host: "nodes.hashvault.pro",
-                port: "22023"
+                host: "autonode.xwp.fyi",
+                port: "19950"
             }
         ]
 
@@ -242,7 +234,7 @@ export class Backend {
             }
 
             if (path) {
-                const baseUrl = net_type === "testnet" ? "https://lokitestnet.com" : "https://lokiblocks.com"
+                const baseUrl = net_type === "testnet" ? "https://explorer-test.xwp.one" : "https://explorer.xwp.one"
                 const url = `${baseUrl}/${path}/`
                 require("electron").shell.openExternal(url + params.id)
             }

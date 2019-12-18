@@ -235,7 +235,7 @@ export default {
         copyViewKey: "Copier la clé de visibilité",
         createNewWallet: "Créer un nouveau portefeuille",
         deleteWallet: "Supprimer le portefeuille",
-        exit: "Quitter le portefeuille Loki GUI",
+        exit: "Quitter le portefeuille Swap GUI",
         importOldGUIWallet: "Importer le portefeuille depuis l’ancien GUI",
         manageKeyImages: "Gérer les images clés",
         openWallet: "Ouvrir le portefeuille",
@@ -320,7 +320,7 @@ export default {
         warnings: {
             noKeyImageExport: "Aucune clé image n'a été trouvé pour l'export",
             usingLocalNode: "Impossible d'accéder au nœud distant, basculement en local uniquement",
-            usingRemoteNode: "lokid introuvable, utilisation du nœud distant"
+            usingRemoteNode: "swapd introuvable, utilisation du nœud distant"
         }
     },
     placeholders: {

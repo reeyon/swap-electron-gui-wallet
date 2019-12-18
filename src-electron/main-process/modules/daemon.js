@@ -20,26 +20,26 @@ export class Daemon {
 
         // Settings for timestamp to height conversion
         // These are initial values used to calculate the height
-        this.PIVOT_BLOCK_HEIGHT = 119681
-        this.PIVOT_BLOCK_TIMESTAMP = 1539676273
-        this.PIVOT_BLOCK_TIME = 120
+        this.PIVOT_BLOCK_HEIGHT = 1000000
+        this.PIVOT_BLOCK_TIMESTAMP = 1557317820
+        this.PIVOT_BLOCK_TIME = 15
     }
 
     checkVersion () {
         return new Promise((resolve, reject) => {
             if (process.platform === "win32") {
-                let lokid_path = path.join(__ryo_bin, "lokid.exe")
-                let lokid_version_cmd = `"${lokid_path}" --version`
-                if (!fs.existsSync(lokid_path)) { resolve(false) }
-                child_process.exec(lokid_version_cmd, (error, stdout, stderr) => {
+                let swapd_path = path.join(__ryo_bin, "swapd.exe")
+                let swapd_version_cmd = `"${swapd_path}" --version`
+                if (!fs.existsSync(swapd_path)) { resolve(false) }
+                child_process.exec(swapd_version_cmd, (error, stdout, stderr) => {
                     if (error) { resolve(false) }
                     resolve(stdout)
                 })
             } else {
-                let lokid_path = path.join(__ryo_bin, "lokid")
-                let lokid_version_cmd = `"${lokid_path}" --version`
-                if (!fs.existsSync(lokid_path)) { resolve(false) }
-                child_process.exec(lokid_version_cmd, { detached: true }, (error, stdout, stderr) => {
+                let swapd_path = path.join(__ryo_bin, "swapd")
+                let swapd_version_cmd = `"${swapd_path}" --version`
+                if (!fs.existsSync(swapd_path)) { resolve(false) }
+                child_process.exec(swapd_version_cmd, { detached: true }, (error, stdout, stderr) => {
                     if (error) { resolve(false) }
                     resolve(stdout)
                 })
@@ -56,7 +56,7 @@ export class Daemon {
             protocol: "http://",
             hostname: daemon.remote_host,
             port: daemon.remote_port,
-            timeout: 20000
+            timeout: 10000
         }).then(data => {
             if (data.error) return { error: data.error }
             return {
@@ -77,8 +77,8 @@ export class Daemon {
             this.port = daemon.remote_port
 
             return new Promise((resolve, reject) => {
-                // Set a 20 second timeout on get_info incase the node is unresponsive
-                this.sendRPC("get_info", {}, { timeout: 20000 }).then((data) => {
+                // Set a 10 second timeout on get_info incase the node is unresponsive
+                this.sendRPC("get_info", {}, { timeout: 10000 }).then((data) => {
                     if (!data.hasOwnProperty("error")) {
                         this.startHeartbeat()
                         resolve()
@@ -121,7 +121,7 @@ export class Daemon {
                 args.push("--stagenet")
             }
 
-            args.push("--log-file", path.join(dirs[net_type], "logs", "lokid.log"))
+            args.push("--log-file", path.join(dirs[net_type], "logs", "swapd.log"))
 
             if (daemon.rpc_bind_ip !== "127.0.0.1") { args.push("--confirm-external-bind") }
 
@@ -141,9 +141,9 @@ export class Daemon {
             portscanner.checkPortStatus(this.port, this.hostname).catch(e => "closed").then(status => {
                 if (status === "closed") {
                     if (process.platform === "win32") {
-                        this.daemonProcess = child_process.spawn(path.join(__ryo_bin, "lokid.exe"), args)
+                        this.daemonProcess = child_process.spawn(path.join(__ryo_bin, "swapd.exe"), args)
                     } else {
-                        this.daemonProcess = child_process.spawn(path.join(__ryo_bin, "lokid"), args, {
+                        this.daemonProcess = child_process.spawn(path.join(__ryo_bin, "swapd"), args, {
                             detached: true
                         })
                     }
@@ -309,20 +309,15 @@ export class Daemon {
         clearInterval(this.heartbeat)
         this.heartbeat = setInterval(() => {
             this.heartbeatAction()
-        }, this.local ? 5 * 1000 : 30 * 1000) // 5 seconds for local daemon, 30 seconds for remote
+        }, this.local ? 5 * 1000 : 10 * 1000) // 5 seconds for local daemon, 10 seconds for remote
         this.heartbeatAction()
 
         clearInterval(this.heartbeat_slow)
         this.heartbeat_slow = setInterval(() => {
             this.heartbeatSlowAction()
-        }, 30 * 1000) // 30 seconds
+        }, 10 * 1000) // 10 seconds
         this.heartbeatSlowAction()
 
-        clearInterval(this.serviceNodeHeartbeat)
-        this.serviceNodeHeartbeat = setInterval(() => {
-            this.updateServiceNodes()
-        }, 5 * 60 * 1000) // 5 minutes
-        this.updateServiceNodes()
     }
 
     heartbeatAction () {
@@ -382,16 +377,6 @@ export class Daemon {
                 }
             }
             this.sendGateway("set_daemon_data", daemon_info)
-        })
-    }
-
-    updateServiceNodes () {
-        // Get the latest service node data
-        this.getRPC("service_nodes").then(data => {
-            if (!data.hasOwnProperty("result")) return
-
-            const service_nodes = data.result.service_node_states
-            this.sendGateway("set_daemon_data", { service_nodes })
         })
     }
 

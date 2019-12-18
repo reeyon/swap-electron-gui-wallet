@@ -35,7 +35,7 @@ let template = [
         submenu: [
             {
                 label: "Learn More",
-                click () { require("electron").shell.openExternal("https://loki.network/") }
+                click () { require("electron").shell.openExternal("https://xwp.one/") }
             }
         ]
     }
@@ -43,7 +43,7 @@ let template = [
 
 if (process.platform === "darwin") {
     template.unshift({
-        label: "Loki Electron Wallet",
+        label: "Swap Electron Wallet",
         submenu: [
             { role: "about" },
             { type: "separator" },

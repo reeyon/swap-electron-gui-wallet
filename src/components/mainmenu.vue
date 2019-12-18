@@ -31,23 +31,24 @@
     <q-modal minimized ref="aboutModal">
         <div class="about-modal">
 
-            <img class="q-mb-md" src="statics/loki.svg" height="42" />
+            <img class="q-mb-md" src="statics/swap.svg" height="42" />
 
             <p class="q-my-sm">Wallet Version: v{{version}}</p>
-            <p class="q-my-sm">Deaemon Version: v{{daemonVersion}}</p>
+            <p class="q-my-sm">Swapd Version: v3.1.0 Greater Roadrunner</p>
+            <p class="q-my-sm">Copyright (c) 2019-2020, Swap Project</p>
             <p class="q-my-sm">Copyright (c) 2018-2019, Loki Project</p>
             <p class="q-my-sm">Copyright (c) 2018, Ryo Currency Project</p>
             <p class="q-my-sm">All rights reserved.</p>
 
             <div class="q-mt-md q-mb-lg external-links">
                 <p>
-                    <a @click="openExternal('https://loki.network/')" href="#">https://loki.network/</a>
+                    <a @click="openExternal('https://xwp.one/')" href="#">https://xwp.one/</a>
                 </p>
                 <p>
-                    <a @click="openExternal('https://t.me/joinchat/DeNvR0JJ4JPn6TVSQjCsZQ')" href="#">Telegram</a> -
-                    <a @click="openExternal('https://discordapp.com/invite/67GXfD6')" href="#">Discord</a> -
-                    <a @click="openExternal('https://www.reddit.com/r/LokiProject/')" href="#">Reddit</a> -
-                    <a @click="openExternal('https://github.com/loki-project/loki-electron-wallet')" href="#">Github</a>
+                    <a @click="openExternal('https://t.me/swapxwp')" href="#">Telegram</a> -
+                    <a @click="openExternal('https://discord.gg/Eun5FHp')" href="#">Discord</a> -
+                    <a @click="openExternal('https://www.reddit.com/r/SwapProject')" href="#">Reddit</a> -
+                    <a @click="openExternal('https://github.com/reeyon/swap-electron-gui-wallet')" href="#">Github</a>
                 </p>
             </div>
 
